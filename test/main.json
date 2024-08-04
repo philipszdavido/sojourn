@@ -1,0 +1,90 @@
+[
+  {
+    "name": "html",
+    "attributes": [],
+    "children": [
+      {
+        "name": "head",
+        "attributes": [],
+        "children": [
+          {
+            "name": "  "
+          },
+          {
+            "name": "  "
+          },
+          {
+            "name": "title",
+            "attributes": [],
+            "children": [
+              {
+                "name": "Document Title"
+              }
+            ]
+          },
+          {
+            "name": "  "
+          },
+          {
+            "name": "meta",
+            "attributes": [
+              {
+                "name": "charset",
+                "value": "UTF-8"
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "link",
+            "attributes": [
+              {
+                "name": "rel",
+                "value": "stylesheet"
+              },
+              {
+                "name": ""
+              },
+              {
+                "name": "href",
+                "value": "styles.css"
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "script",
+            "attributes": [
+              {
+                "name": "src",
+                "value": "script.js"
+              },
+              {
+                "name": ""
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "body",
+        "attributes": [],
+        "children": [
+          {
+            "name": "  "
+          },
+          {
+            "name": "h1",
+            "attributes": [],
+            "children": [
+              {
+                "name": "Hello, World!"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
