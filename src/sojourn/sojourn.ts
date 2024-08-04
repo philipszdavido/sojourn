@@ -2,102 +2,112 @@ import {ElementNode, NodeType, TextNode, Token} from "../types/types";
 import {SELF_CLOSING_LINKS} from "../utils/constants";
 import {removeElements} from "../utils/remove-elements";
 
-export function sojourn(tokens: Token[]) {
+export class Sojourn {
 
-    const rootNodes = [];
+    constructor(private readonly tokens: Token[]) {}
 
-    for (let i = 0; i < tokens.length; i++) {
-
-        const token = tokens[i];
-        const tokenName = token.name;
-        const tokenType = token.type;
-
-        // if its a node .
-        // find its closing tag
-        if(tokenType === "node" && !tokenName?.startsWith("/")) {
-
-            const elementNode = new ElementNode(tokenName, token?.attributes, [])
-
-            const {
-                children,
-                closingTagIndex,
-                selfClosing
-            } = findTokenClosingTag(token, i, tokens)
-
-            if(!selfClosing) {
-                tokens = removeElements(i + 1, closingTagIndex as number, tokens);
-                elementNode.children = sojourn(children);
-            }
-
-            rootNodes.push(elementNode);
-
-        }
-
-        if(tokenType === "text") {
-            // convert to Text Node
-            rootNodes.push(new TextNode(tokenName));
-        }
-
+    public start() {
+        return this.sojourn(this.tokens)
     }
 
-    return rootNodes
+    private sojourn(tokens: Token[]) {
 
-}
+        const rootNodes = [];
 
-export function findTokenClosingTag(token: Token, currentTokenIndex: number, tokens: Token[]) {
+        for (let i = 0; i < tokens.length; i++) {
 
-    const tokenName = token?.name;
-    const children = []
-    let closingTagIndex;
-    let startPushingChildren = false;
+            const token = tokens[i];
+            const tokenName = token.name;
+            const tokenType = token.type;
 
-    if(SELF_CLOSING_LINKS?.includes(token.name)) {
-        return  {
-            closingTagIndex: currentTokenIndex + 1,
-            children: [],
-            selfClosing: true,
-        }
-    }
+            // if its a node .
+            // find its closing tag
+            if (tokenType === "node" && !tokenName?.startsWith("/")) {
 
-    for (let i = 0; i < tokens.length; i++) {
+                const elementNode = new ElementNode(tokenName, token?.attributes, [])
 
-        const currentToken = tokens[i]
+                const {
+                    children,
+                    closingTagIndex,
+                    selfClosing
+                } = this.findTokenClosingTag(token, i, tokens)
 
-        if(i === currentTokenIndex) {
+                if (!selfClosing) {
+                    tokens = removeElements(i + 1, closingTagIndex as number, tokens);
+                    elementNode.children = this.sojourn(children);
+                }
 
-            if(currentToken?.name === token?.name) {
-                startPushingChildren = true;
+                rootNodes.push(elementNode);
+
             }
 
-            continue
-
-        }
-
-        if(currentToken.name === "/" + tokenName) {
-
-            closingTagIndex = i
-            startPushingChildren = false;
-
-            break;
-
-        } else {
-
-            if(startPushingChildren) {
-                children.push(currentToken)
+            if (tokenType === "text") {
+                // convert to Text Node
+                rootNodes.push(new TextNode(tokenName));
             }
 
         }
 
+        return rootNodes
+
     }
 
-    if(!closingTagIndex && !children.length) {
-        // no closing tag found.
-        console.log("no closing tag found.", tokenName)
-    }
+    private findTokenClosingTag(token: Token, currentTokenIndex: number, tokens: Token[]) {
 
-    return {
-        closingTagIndex,
-        children
+        const tokenName = token?.name;
+        const children = []
+        let closingTagIndex;
+        let startPushingChildren = false;
+
+        if (SELF_CLOSING_LINKS?.includes(token.name)) {
+            return {
+                closingTagIndex: currentTokenIndex + 1,
+                children: [],
+                selfClosing: true,
+            }
+        }
+
+        for (let i = 0; i < tokens.length; i++) {
+
+            const currentToken = tokens[i]
+
+            if (i === currentTokenIndex) {
+
+                if (currentToken?.name === token?.name) {
+                    startPushingChildren = true;
+                }
+
+                continue
+
+            }
+
+            if (currentToken.name === "/" + tokenName) {
+
+                closingTagIndex = i
+                startPushingChildren = false;
+
+                break;
+
+            } else {
+
+                if (startPushingChildren) {
+                    children.push(currentToken)
+                }
+
+            }
+
+        }
+
+        if (!closingTagIndex && !children.length) {
+            // no closing tag found.
+            console.log("no closing tag found.", tokenName)
+        }
+
+        return {
+            closingTagIndex,
+            children
+        }
+
     }
 
 }

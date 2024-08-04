@@ -1,5 +1,6 @@
 import {Tokenizer} from "../src/tokenizer/tokenizer";
-import {sojourn} from "../src/sojourn/sojourn";
+import {Sojourn} from "../src/sojourn/sojourn";
+import {sojourn} from "../src";
 
 const html = `
 
@@ -19,10 +20,12 @@ const html = `
 
 `
 
-const tokens = new Tokenizer(html).start();
+// const tokens = new Tokenizer(html).start();
+//
+// console.log(tokens);
+//
+// const nodes = new Sojourn(tokens).start()
 
-console.log(tokens);
-
-const nodes = sojourn(tokens)
+const nodes = sojourn(html)
 
 console.log(JSON.stringify(nodes));

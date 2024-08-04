@@ -1,4 +1,4 @@
-import {sojourn} from "../src/sojourn/sojourn";
+import {Sojourn} from "../src/sojourn/sojourn";
 import {Token} from "../src/types/types";
 
 const testTokens = [
@@ -141,7 +141,7 @@ const testTokens1 = [
     { index: 15, name: '/html', type: 'node' },
 ] as Token[]
 
-const tokens = sojourn(testTokens1/*[
+const tokens = new Sojourn(testTokens1/*[
     { index: 2, name: '  ', type: 'text' },
     { index: 3, name: '  ', type: 'text' },
     {
@@ -178,7 +178,8 @@ const tokens = sojourn(testTokens1/*[
         type: 'node'
     },
     { index: 13, name: '/script', endTag: true, type: 'node' },
-]*/)
+]*/).start()
+
 //console.log(node)
 
 console.log(JSON.stringify(tokens))
