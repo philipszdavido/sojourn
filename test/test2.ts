@@ -1,4 +1,3 @@
-import {ParseTokens} from "../src/parser/parser2";
 import {Tokenizer} from "../src/tokenizer/tokenizer";
 
 const html = `
@@ -28,5 +27,3 @@ const html2 = `
 `
 
 const tokens = new Tokenizer(html).start();
-
-new ParseTokens(tokens).build()
