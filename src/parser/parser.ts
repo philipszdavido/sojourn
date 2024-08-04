@@ -1,12 +1,4 @@
-class ElementNode {
-
-    constructor(
-        public name: string, 
-        public attributes: Array<any>, 
-        private children: ElementNode[]) {
-    }
-
-}
+import {ElementNode} from "./parser2";
 
 class HTMLParser {
 

@@ -1,0 +1,65 @@
+[
+  {
+    "name": "html",
+    "attributes": [],
+    "children": [
+      {
+        "name": "head",
+        "attributes": [],
+        "children": [
+          {
+            "name": "  "
+          },
+          {
+            "name": "  "
+          },
+          {
+            "name": "title",
+            "attributes": [],
+            "children": [
+              {
+                "name": "Document Title"
+              }
+            ]
+          },
+          {
+            "name": "  "
+          },
+          {
+            "name": "meta",
+            "attributes": [
+              [
+                null
+              ]
+            ],
+            "children": []
+          },
+          {
+            "name": "link",
+            "attributes": [
+              [
+                null
+              ],
+              [
+                null
+              ]
+            ],
+            "children": []
+          },
+          {
+            "name": "script",
+            "attributes": [
+              [
+                null
+              ],
+              [
+                null
+              ]
+            ],
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]

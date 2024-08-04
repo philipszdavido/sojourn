@@ -1,18 +1,20 @@
-// @ts-ignore
-export function sojourn(parent, tokens) {
+import {ElementNode, NodeType, TextNode, Token} from "../types/types";
 
-    const rootNodes = {}
-    let currentNode = parent
+export function sojourn(tokens: Token[]) {
+
+    const rootNodes = [];
 
     for (let i = 0; i < tokens.length; i++) {
 
-        const token = tokens[i]
+        const token = tokens[i];
+        const tokenName = token.name;
+        const tokenType = token.type;
 
         // if its a node .
         // find its closing tag
-        if(token?.type === "node" && !token?.name?.startsWith("/")) {
+        if(tokenType === "node" && !tokenName?.startsWith("/")) {
 
-            currentNode = token
+            const elementNode = new ElementNode(tokenName, token?.attributes, [])
 
             const {
                 children,
@@ -20,18 +22,23 @@ export function sojourn(parent, tokens) {
             } = findTokenClosingTag(token, i, tokens)
 
             tokens = removeElementsToFrom(i + 1, closingTagIndex as number, tokens);
-            token.children = sojourn(currentNode, children);
+            elementNode.children = sojourn(children);
+            rootNodes.push(elementNode);
 
+        }
+
+        if(tokenType === "text") {
+            // convert to Text Node
+            rootNodes.push(new TextNode(tokenName));
         }
 
     }
 
-    return tokens
+    return rootNodes
 
 }
 
-// @ts-ignore
-export function findTokenClosingTag(token, currentTokenIndex, tokens) {
+export function findTokenClosingTag(token: Token, currentTokenIndex: number, tokens: Token[]) {
 
     const selfClosingLinks = ["meta", "link", "input", "br"];
 
@@ -82,9 +89,6 @@ export function findTokenClosingTag(token, currentTokenIndex, tokens) {
         // no closing tag found.
         console.log("no closing tag found.", tokenName)
     }
-
-    // console.log((token), currentTokenIndex, children);
-    // console.log("=============================")
 
     return {
         closingTagIndex,

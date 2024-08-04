@@ -1,17 +1,6 @@
-import {ParseTokens} from "../parser/parser2";
+import {Token} from "../types/types";
 
 const selfClosingTags = ["input", "br"]
-
-export type Token = {
-    name: string;
-    attributes?: Array<{
-        name?: string;
-        value?: string | undefined;
-    }>;
-    startTag?: boolean;
-    endTag?: boolean;
-    type: "node" | "text" | "EOF"
-}
 
 export class Tokenizer {
 

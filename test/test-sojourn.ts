@@ -1,4 +1,5 @@
 import {sojourn} from "../src/sojourn/sojourn";
+import {Token} from "../src/types/types";
 
 const testTokens = [
     {
@@ -83,7 +84,7 @@ const testTokens = [
     { index: 19, name: '/h1', endTag: true, type: 'node' },
     { index: 20, name: '/body', endTag: true, type: 'node' },
     { index: 21, name: '/html', endTag: true, type: 'node' }
-]
+] as Token[]
 
 const testTokens1 = [
     {
@@ -138,9 +139,9 @@ const testTokens1 = [
     { index: 13, name: '/script', endTag: true, type: 'node' },
     { index: 14, name: '/head', endTag: true, type: 'node' },
     { index: 15, name: '/html', type: 'node' },
-]
+] as Token[]
 
-const tokens = sojourn(null, testTokens1/*[
+const tokens = sojourn(testTokens1/*[
     { index: 2, name: '  ', type: 'text' },
     { index: 3, name: '  ', type: 'text' },
     {
