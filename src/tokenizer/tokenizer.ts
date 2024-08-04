@@ -1,4 +1,5 @@
 import {Token} from "../types/types";
+import {AttributeParser} from "../attr-parser/attribute-parser";
 
 const selfClosingTags = ["input", "br"]
 
@@ -158,21 +159,10 @@ export class Tokenizer {
 
     private processAttributes(attributes: string[]) {
 
-        return attributes.map((attr) => {
-            const parts = attr.split("=")
+        const attributesString = attributes.join(" ")
 
-            if(parts.length == 2) {
-                return {
-                    name: parts[0],
-                    value: parts[1]
-                }
-            } else {
-                return {
-                    name: parts[0]
-                }
-            }
-
-        })
+        const attributeParser = new AttributeParser(attributesString)
+        return attributeParser.start()
         
     }
 

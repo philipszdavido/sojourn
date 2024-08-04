@@ -27,3 +27,5 @@ const html2 = `
 `
 
 const tokens = new Tokenizer(html).start();
+
+console.log(tokens);

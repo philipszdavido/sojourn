@@ -97,7 +97,7 @@ export function findTokenClosingTag(token: Token, currentTokenIndex: number, tok
 
 }
 
-function removeElementsToFrom(start: number, end: number, array: Array<any>) {
+function removeElementsToFrom(start: number, end: number, array: Array<Token>) {
     const newArray = [];
 
     for (let i = 0; i < array.length; i++) {
