@@ -1,6 +1,8 @@
 
 export class ElementNode {
 
+    type = "element"
+
     constructor(
         public name: string,
         public attributes: Array<Attribute> | undefined,
@@ -15,6 +17,7 @@ export type Attribute = {
 }
 
 export class TextNode {
+    type = "text"
     constructor(public name: string) {}
 }
 

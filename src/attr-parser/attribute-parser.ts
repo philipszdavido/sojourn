@@ -3,6 +3,7 @@ import {Attribute} from "../types/types";
 export class AttributeParser {
 
     private ignores = [" ", "", "\n", "\p"]
+    private ignoresList = [" ", "\n", "\p"]
 
     constructor(private readonly attributesString: string) {}
 
@@ -42,7 +43,7 @@ export class AttributeParser {
 
             }
 
-            if([" ", "\n", "\p"].includes(char)) {
+            if(this.ignores.includes(char)) {
                 attributes.push({ name })
                 name = ""
                 continue

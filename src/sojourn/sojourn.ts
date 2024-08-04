@@ -1,4 +1,6 @@
 import {ElementNode, NodeType, TextNode, Token} from "../types/types";
+import {SELF_CLOSING_LINKS} from "../utils/constants";
+import {removeElements} from "../utils/remove-elements";
 
 export function sojourn(tokens: Token[]) {
 
@@ -18,11 +20,15 @@ export function sojourn(tokens: Token[]) {
 
             const {
                 children,
-                closingTagIndex
+                closingTagIndex,
+                selfClosing
             } = findTokenClosingTag(token, i, tokens)
 
-            tokens = removeElementsToFrom(i + 1, closingTagIndex as number, tokens);
-            elementNode.children = sojourn(children);
+            if(!selfClosing) {
+                tokens = removeElements(i + 1, closingTagIndex as number, tokens);
+                elementNode.children = sojourn(children);
+            }
+
             rootNodes.push(elementNode);
 
         }
@@ -40,17 +46,16 @@ export function sojourn(tokens: Token[]) {
 
 export function findTokenClosingTag(token: Token, currentTokenIndex: number, tokens: Token[]) {
 
-    const selfClosingLinks = ["meta", "link", "input", "br"];
-
     const tokenName = token?.name;
     const children = []
     let closingTagIndex;
     let startPushingChildren = false;
 
-    if(selfClosingLinks?.includes(token.name)) {
+    if(SELF_CLOSING_LINKS?.includes(token.name)) {
         return  {
             closingTagIndex: currentTokenIndex + 1,
-            children: []
+            children: [],
+            selfClosing: true,
         }
     }
 
@@ -95,20 +100,4 @@ export function findTokenClosingTag(token: Token, currentTokenIndex: number, tok
         children
     }
 
-}
-
-function removeElementsToFrom(start: number, end: number, array: Array<Token>) {
-    const newArray = [];
-
-    for (let i = 0; i < array.length; i++) {
-        const el = array[i]
-
-        if(i === end || i === start || (i > start && i < end)) {
-            continue
-        }
-
-        newArray.push(el)
-    }
-
-    return newArray
 }
