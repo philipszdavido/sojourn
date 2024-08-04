@@ -1,0 +1,16 @@
+{
+  "name": "sojourn",
+  "version": "1.0.0",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "lodash.uniq": "^4.5.0",
+    "typescript": "^5.5.4"
+  }
+}
