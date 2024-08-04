@@ -1,12 +1,12 @@
-import {sojourn} from './sojourn/sojourn';
+import {sojourn as sojourner} from './sojourn/sojourn';
 import {Tokenizer} from "./tokenizer/tokenizer";
 
 
-export const main = (html: string) => {
+export const sojourn = (html: string) => {
 
     const tokens = new Tokenizer(html).start();
 
-    const nodes = sojourn(tokens)
+    const nodes = sojourner(tokens)
 
     return nodes
 
