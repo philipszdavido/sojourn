@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "jest": "^29.7.0",
     "lodash.uniq": "^4.5.0",
     "typescript": "^5.5.4"
   }
