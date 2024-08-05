@@ -105,7 +105,8 @@ export class Tokenizer {
 
                 }
 
-            } else if(!comment || !DOCTYPE) {
+            }
+            else if(!comment || !DOCTYPE) {
 
                 if(char === ">") {
                     continue;
