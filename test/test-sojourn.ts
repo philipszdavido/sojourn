@@ -141,7 +141,7 @@ const testTokens1 = [
     { index: 15, name: '/html', type: 'node' },
 ] as Token[]
 
-const tokens = new Sojourn(testTokens1/*[
+const testTokens3 = [
     { index: 2, name: '  ', type: 'text' },
     { index: 3, name: '  ', type: 'text' },
     {
@@ -178,9 +178,11 @@ const tokens = new Sojourn(testTokens1/*[
         type: 'node'
     },
     { index: 13, name: '/script', endTag: true, type: 'node' },
-]*/).start()
+] as Token[]
 
-//console.log(node)
+const tokens = new Sojourn(testTokens1).start()
+
+// console.log(node)
 
 console.log(JSON.stringify(tokens))
 
