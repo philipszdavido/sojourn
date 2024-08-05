@@ -1,8 +1,6 @@
 import {Token} from "../types/types";
 import {AttributeParser} from "../attr-parser/attribute-parser";
 
-const selfClosingTags = ["input", "br"]
-
 export class Tokenizer {
 
     constructor(private html: string) {}
