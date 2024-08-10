@@ -12,7 +12,7 @@ export class Tokenizer {
         return new Tokenizer(html)
     }
 
-    public start() {
+    public start(root?: boolean) {
 
         this.html = this.html.split("").filter(char => {
             if (char === "\n") {
@@ -27,8 +27,6 @@ export class Tokenizer {
         let DOCTYPE = false;
 
         let elementName = "";
-
-        // const tokens: Array<Token> = [];
 
         for (let index = 0; index < this.html.length; index++) {
 
@@ -156,6 +154,10 @@ export class Tokenizer {
             
         }
 
+        if(!root) {
+            return this.tokens
+        }
+
         this.tokens.push({
             name: "EOF",
             type: "EOF",
@@ -219,7 +221,7 @@ export class Tokenizer {
     private checkTemplateSyntaxes(currentIndex: number) {
 
         let text = "";
-        const stops = ["(", "{"];
+        const parenthesisBracketOpen = ["(", "{"];
         let isViableSyntax = false;
 
         let token!: Token;
@@ -292,11 +294,6 @@ export class Tokenizer {
 
                         if(closeBracketChar === "}" && closeBracket === 0) {
 
-                            // const splicedHtml = this.html.split("")
-                            // splicedHtml.splice(index, 1);
-                            //
-                            // this.html = splicedHtml.join("");
-
                             endIndex = j;
 
                             const html = this.html.slice(startIndex, endIndex);
@@ -323,20 +320,22 @@ export class Tokenizer {
 
             text += char;
 
-            console.log(text, char, nextChar)
+            if(parenthesisBracketOpen.includes(nextChar)){
 
-            if(stops.includes(nextChar) && syntaxes.includes(text)){
+                if(syntaxes.includes(text.trim())) {
 
-                isViableSyntax = true;
+                    isViableSyntax = true;
 
-                token = {
-                    type: "node",
-                    name: text,
-                    startTag: true,
-                    attributes: [],
-                };
+                    token = {
+                        type: "node",
+                        name: text,
+                        startTag: true,
+                        attributes: [],
+                    };
 
-                text = "";
+                    text = "";
+
+                }
 
             }
 

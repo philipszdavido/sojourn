@@ -1,0 +1,140 @@
+[
+  {
+    "index": 0,
+    "name": "div",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 1, "name": "{{2+4}}", "type": "text"},
+  {"index": 2, "name": "/div", "endTag": true, "type": "node"},
+  {
+    "index": 3,
+    "name": "div",
+    "attributes": [
+      {"name": "class", "value": "for"}
+    ],
+    "startTag": true,
+    "type": "node"
+  },
+  {
+    "index": 4,
+    "type": "node",
+    "name": "for",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "i of [7,9, 10]"              },
+      {"name": "let-attr", "value": "y of [100,200]"              },
+      {"name": "let-attr", "value": "x > 5"                       },
+      {"name": "let-attr", "value": "fruit of ['mango', 'orange']"}
+    ]
+  },
+  {
+    "index": 5,
+    "name": "span",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 6, "name": "For Child ", "type": "text"},
+  {
+    "index": 7,
+    "name": "b",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 8, "name": "{{i}}", "type": "text"},
+  {"index": 9, "name": "/b", "endTag": true, "type": "node"},
+  {"index": 10, "name": "/span", "endTag": true, "type": "node"},
+  {"index": 11, "name": " @for(ii of [2,3,4]){", "type": "text"},
+  {
+    "index": 12,
+    "name": "strong",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 13, "name": "Strong", "type": "text"},
+  {"index": 14, "name": "/strong", "endTag": true, "type": "node"},
+  {"index": 15, "name": "/for", "endTag": true, "type": "node"},
+  {
+    "index": 16,
+    "type": "node",
+    "name": "for",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "i of [7,9, 10]"              },
+      {"name": "let-attr", "value": "y of [100,200]"              },
+      {"name": "let-attr", "value": "x > 5"                       },
+      {"name": "let-attr", "value": "fruit of ['mango', 'orange']"}
+    ]
+  },
+  {
+    "index": 17,
+    "type": "node",
+    "name": "if",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "y < 100"}
+    ]
+  },
+  {
+    "index": 18,
+    "name": "i",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 19, "name": "{{y}}", "type": "text"},
+  {"index": 20, "name": "/i", "endTag": true, "type": "node"},
+  {"index": 21, "name": "/if", "endTag": true, "type": "node"},
+  {"index": 22, "name": "/for", "endTag": true, "type": "node"},
+  {
+    "index": 23,
+    "type": "node",
+    "name": "for",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "i of [7,9, 10]"              },
+      {"name": "let-attr", "value": "y of [100,200]"              },
+      {"name": "let-attr", "value": "x > 5"                       },
+      {"name": "let-attr", "value": "fruit of ['mango', 'orange']"}
+    ]
+  },
+  {"index": 24, "name": " ", "type": "text"},
+  {
+    "index": 25,
+    "name": "h1",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 26, "name": "My First Heading", "type": "text"},
+  {"index": 27, "name": "/h1", "endTag": true, "type": "node"},
+  {"index": 28, "name": "/for", "endTag": true, "type": "node"},
+  {
+    "index": 29,
+    "type": "node",
+    "name": "for",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "i of [7,9, 10]"              },
+      {"name": "let-attr", "value": "y of [100,200]"              },
+      {"name": "let-attr", "value": "x > 5"                       },
+      {"name": "let-attr", "value": "fruit of ['mango', 'orange']"}
+    ]
+  },
+  {"index": 30, "name": "        ", "type": "text"},
+  {
+    "index": 31,
+    "name": "i",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 32, "name": " {{ fruit }}", "type": "text"},
+  {"index": 33, "name": "/i", "endTag": true, "type": "node"},
+  {"index": 34, "name": "/for", "endTag": true, "type": "node"},
+  {"index": 35, "name": "EOF", "type": "EOF"}
+]
