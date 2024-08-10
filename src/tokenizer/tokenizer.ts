@@ -19,7 +19,9 @@ export class Tokenizer {
         let comment = false;
         let DOCTYPE = false;
 
-        let elementName = ""
+        let elementName = "";
+
+        let isAttributeValue = false;
 
         const tokens: Array<Token> = [];
 
@@ -28,7 +30,7 @@ export class Tokenizer {
             const char = this.html[index];
             const nextChar = this.html[index + 1];
 
-            if(char === "<") {
+            if(char === "<" && openTag === false) {
 
                 // check for comment
                 if(nextChar === "!") {
@@ -69,7 +71,10 @@ export class Tokenizer {
 
                 elementName += char
 
-                if(nextChar === ">") {
+                // make sure that the ">"
+                if(nextChar === ">" && !this.isInsideAttributeValue(elementName)) {
+
+                    console.log(this.isInsideAttributeValue(elementName), elementName)
 
                     if(elementName.startsWith("/")) {
 
@@ -153,6 +158,39 @@ export class Tokenizer {
         // console.log(mappedTokens)
 
         return mappedTokens
+
+    }
+
+    private isInsideAttributeValue(elementName: string) {
+        // check we have " or ' left
+        // and we have = after " or '
+
+        let insideAttribute = false;
+
+        const reversedElementName = elementName
+            .split("=")
+            .map( part => part.trim())
+            .join("=")
+            .split("").reverse().join("");
+
+        let sawAttributeValueOpen = false
+
+        for(let i = 0; i < reversedElementName.length; i++) {
+            const char = reversedElementName[i];
+            const nextChar = reversedElementName[i + 1];
+
+            if(char === '"' && nextChar !== "=") {
+                sawAttributeValueOpen = true
+                continue
+            }
+
+            if(!sawAttributeValueOpen && char === '"' && nextChar === "=") {
+                insideAttribute = true;
+                break;
+            }
+        }
+
+        return insideAttribute;
 
     }
 
