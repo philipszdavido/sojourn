@@ -5,6 +5,10 @@ export class Tokenizer {
 
     constructor(private html: string) {}
 
+    public static getInstance(html: string): Tokenizer {
+        return new Tokenizer(html)
+    }
+
     public start() {
 
         this.html = this.html.split("").filter(char => {
