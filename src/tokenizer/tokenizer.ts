@@ -259,6 +259,7 @@ export class Tokenizer {
                                     name: "let-attr",
                                     value: condition,
                                 })
+                                this.tokens.push(token)
                             }
                             index = j + 1;
                             break;
@@ -267,11 +268,14 @@ export class Tokenizer {
                     }
 
                 }
+
                 else if(char === "{") {
 
                     // get till we reach }
 
-                    let closeBracket = 0
+                    let closeBracket = 0;
+                    const startIndex = index + 1;
+                    let endIndex;
 
                     for(let j = index; j < this.html.length; j++) {
 
@@ -288,12 +292,16 @@ export class Tokenizer {
 
                         if(closeBracketChar === "}" && closeBracket === 0) {
 
-                            const splicedHtml = this.html.split("")
-                            splicedHtml.splice(index, 1);
+                            // const splicedHtml = this.html.split("")
+                            // splicedHtml.splice(index, 1);
+                            //
+                            // this.html = splicedHtml.join("");
 
-                            this.html = splicedHtml.join("");
+                            endIndex = j;
 
-                            const _tokens = Tokenizer.getInstance(this.html).start()
+                            const html = this.html.slice(startIndex, endIndex);
+
+                            const _tokens = Tokenizer.getInstance(html).start()
                             this. tokens.push(..._tokens);
                             this.tokens.push({
                                 name: "/" + token.name,
@@ -308,6 +316,8 @@ export class Tokenizer {
                     }
 
                 }
+
+                continue;
 
             }
 
