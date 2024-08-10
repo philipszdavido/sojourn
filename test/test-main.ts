@@ -67,6 +67,22 @@ const toughHTML = `
 </body>
 </html>
 
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- This is a comment -->
+  <title>Document Title</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <h1>Hello, <br /> World!</h1>
+  <h1>Hello, <br /> World!</h1>
+  <h1>Hello, <br /> World!</h1>
+</body>
+</html>
+
 `
 
 // const tokens = new Tokenizer(html).start();
@@ -75,6 +91,11 @@ const toughHTML = `
 //
 // const nodes = new Sojourn(tokens).start()
 
-const nodes = sojourn(toughHTML)
+const nodes = sojourn(`
+<div *[ngIf]="nodes.length < 0">
+</div>
+<div *[ngFor]="nodes.length > 0">
+</div>
+`)
 
 console.log(JSON.stringify(nodes));
