@@ -99,7 +99,7 @@ export class Tokenizer {
                             attributes: elementAttributes,
                             startTag: true,
                             type: "node"
-                        })
+                        });
     
                     }
 
