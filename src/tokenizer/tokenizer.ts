@@ -25,8 +25,6 @@ export class Tokenizer {
 
         let elementName = "";
 
-        let isAttributeValue = false;
-
         const tokens: Array<Token> = [];
 
         for (let index = 0; index < this.html.length; index++) {
@@ -77,8 +75,6 @@ export class Tokenizer {
 
                 // make sure that the ">"
                 if(nextChar === ">" && !this.isInsideAttributeValue(elementName)) {
-
-                    console.log(this.isInsideAttributeValue(elementName), elementName)
 
                     if(elementName.startsWith("/")) {
 
