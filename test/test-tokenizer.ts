@@ -39,6 +39,10 @@ const html3 = `
 
 `
 
-const tokens = new Tokenizer(html3).start();
+const tokens = new Tokenizer(`
+@for(fruit of ['mango', 'orange']) {
+        <i> {{ fruit }}</i>
+      }
+`).start();
 
 console.log(tokens);

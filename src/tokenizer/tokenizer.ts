@@ -266,7 +266,8 @@ export class Tokenizer {
 
                     }
 
-                } else if(char === "{") {
+                }
+                else if(char === "{") {
 
                     // get till we reach }
 
@@ -312,6 +313,8 @@ export class Tokenizer {
 
             text += char;
 
+            console.log(text, char, nextChar)
+
             if(stops.includes(nextChar) && syntaxes.includes(text)){
 
                 isViableSyntax = true;
@@ -325,10 +328,6 @@ export class Tokenizer {
 
                 text = "";
 
-                // index++;
-
-            } else {
-                break;
             }
 
         }
