@@ -15,3 +15,14 @@ export const SELF_CLOSING_LINKS = [
     "wbr",
     "textarea"
 ];
+
+export const syntaxes = [
+    "for",
+    "if",
+    "else",
+    "elseif",
+    "switch",
+    "case",
+    "default",
+    "defer"
+]
