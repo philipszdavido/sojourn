@@ -68,7 +68,7 @@ export class Tokenizer {
 
             if(char === "@" && parseControlSyntax) {
 
-                const returnIndex = this.checkTemplateSyntaxes(index);
+                const returnIndex = this.parseControlTemplateSyntax(index);
 
                 if(returnIndex) {
                     index = returnIndex;
@@ -149,7 +149,7 @@ export class Tokenizer {
 
                     if(textChar === "@" && parseControlSyntax) {
 
-                        const returnIndex = this.checkTemplateSyntaxes(j);
+                        const returnIndex = this.parseControlTemplateSyntax(j);
 
                         if(returnIndex) {
                             j = returnIndex;
@@ -239,10 +239,10 @@ export class Tokenizer {
         
     }
 
-    private checkTemplateSyntaxes(currentIndex: number) {
+    private parseControlTemplateSyntax(currentIndex: number) {
 
         let text = "";
-        const parenthesisBracketOpen = ["(", "{"];
+        const paranthesisBracketOpen = ["(", "{"];
         let isViableSyntax = false;
 
         let exit = false;
@@ -282,16 +282,21 @@ export class Tokenizer {
                         condition += charCondition;
 
                         if(nextCharCondition === ")") {
-                            if(token) {
-                                // @ts-ignore
+
+                            if(token && token.attributes) {
+
                                 token.attributes.push({
                                     name: "let-attr",
                                     value: condition,
-                                })
+                                });
+
                                 this.tokens.push(token)
+
                             }
-                            index = j //+ 1;
+
+                            index = j;
                             break;
+
                         }
 
                     }
@@ -309,7 +314,6 @@ export class Tokenizer {
                     for(let j = index; j < this.html.length; j++) {
 
                         const closeBracketChar = this.html[j];
-                        const nextCloseBracketChar = this.html[j + 1];
 
                         if(closeBracketChar === "{") {
                             closeBracket++
@@ -330,7 +334,7 @@ export class Tokenizer {
                             this. tokens.push(...childTokens);
 
                             this.tokens.push({
-                                name: "/" + token.name,
+                                name: "/" + token.name?.trim(),
                                 endTag: true,
                                 type: "node"
                             })
@@ -355,7 +359,7 @@ export class Tokenizer {
 
             text += char;
 
-            if(parenthesisBracketOpen.includes(nextChar)){
+            if(paranthesisBracketOpen.includes(nextChar)){
 
                 if(syntaxes.includes(text.trim())) {
 
@@ -363,7 +367,7 @@ export class Tokenizer {
 
                     token = {
                         type: "node",
-                        name: text,
+                        name: text?.trim(),
                         startTag: true,
                         attributes: [],
                     };
