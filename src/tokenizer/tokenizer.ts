@@ -1,15 +1,30 @@
 import {Token} from "../types/types";
 import {AttributeParser} from "../attr-parser/attribute-parser";
+import {syntaxes} from "../utils/constants";
+
+type OptionsType = {
+    parseControlSyntax: boolean,
+    parseExpression: boolean,
+}
+
+const defaultOptions: OptionsType = {
+    parseControlSyntax: true,
+    parseExpression: false,
+}
 
 export class Tokenizer {
 
-    constructor(private html: string) {}
+    private tokens: Token[] = [];
 
-    public static getInstance(html: string): Tokenizer {
-        return new Tokenizer(html)
+    constructor(private html: string, private options: OptionsType = defaultOptions) {}
+
+    public static getInstance(html: string, options?: OptionsType): Tokenizer {
+        return new Tokenizer(html, options = defaultOptions)
     }
 
-    public start() {
+    public start(root?: boolean) {
+
+        const { parseControlSyntax, parseExpression } = this.options
 
         this.html = this.html.split("").filter(char => {
             if (char === "\n") {
@@ -24,8 +39,6 @@ export class Tokenizer {
         let DOCTYPE = false;
 
         let elementName = "";
-
-        const tokens: Array<Token> = [];
 
         for (let index = 0; index < this.html.length; index++) {
 
@@ -53,6 +66,16 @@ export class Tokenizer {
                 continue;
             }
 
+            if(char === "@" && parseControlSyntax) {
+
+                const returnIndex = this.parseControlTemplateSyntax(index);
+
+                if(returnIndex) {
+                    index = returnIndex;
+                }
+
+            }
+
             if(comment) {
                 if(char === "-" && nextChar === ">") {
                     comment = false;
@@ -78,7 +101,7 @@ export class Tokenizer {
 
                     if(elementName.startsWith("/")) {
 
-                        tokens.push({
+                        this.tokens.push({
                             name: elementName,
                             endTag: true,
                             type: "node"
@@ -94,7 +117,7 @@ export class Tokenizer {
 
                         const elementAttributes = this.processAttributes(elementNameParts.slice(1))
 
-                        tokens.push({
+                        this.tokens.push({
                             name,
                             attributes: elementAttributes,
                             startTag: true,
@@ -124,9 +147,20 @@ export class Tokenizer {
                     const textChar = this.html[j];
                     textName += textChar;
 
+                    if(textChar === "@" && parseControlSyntax) {
+
+                        const returnIndex = this.parseControlTemplateSyntax(j);
+
+                        if(returnIndex) {
+                            j = returnIndex;
+                            index = j;
+                        }
+
+                    }
+
                     if(this.html[j + 1] === "<") {
 
-                        tokens.push({
+                        this.tokens.push({
                             name: textName,
                             type: "text"
                         })
@@ -143,19 +177,21 @@ export class Tokenizer {
             
         }
 
-        tokens.push({
+        if(!root) {
+            return this.tokens
+        }
+
+        this.tokens.push({
             name: "EOF",
             type: "EOF",
         })
 
-        const mappedTokens = tokens.map((token, index) => {
+        const mappedTokens = this.tokens.map((token, index) => {
             return {
                 index,
                 ...token
             }
         });
-
-        // console.log(mappedTokens)
 
         return mappedTokens
 
@@ -201,6 +237,151 @@ export class Tokenizer {
         const attributeParser = new AttributeParser(attributesString)
         return attributeParser.start()
         
+    }
+
+    private parseControlTemplateSyntax(currentIndex: number) {
+
+        let text = "";
+        const paranthesisBracketOpen = ["(", "{"];
+        let isViableSyntax = false;
+
+        let exit = false;
+
+        let token!: Token;
+
+        let returnIndex
+
+        for (let index = currentIndex; index < this.html.length; index++) {
+
+            const char = this.html[index];
+            const nextChar = this.html[index + 1];
+
+            if(exit) {
+                break;
+            }
+
+            if(index === currentIndex) {
+                continue;
+            }
+
+            if(isViableSyntax) {
+
+                if(char === "(") {
+
+                    // get till we reach )
+                    let condition = ""
+                    for(let j = index; j < this.html.length; j++) {
+
+                        const charCondition = this.html[j];
+                        const nextCharCondition = this.html[j + 1];
+
+                        if(j === index) {
+                            continue;
+                        }
+
+                        condition += charCondition;
+
+                        if(nextCharCondition === ")") {
+
+                            if(token && token.attributes) {
+
+                                token.attributes.push({
+                                    name: "let-attr",
+                                    value: condition,
+                                });
+
+                                this.tokens.push(token)
+
+                            }
+
+                            index = j;
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+                else if(char === "{") {
+
+                    // get till we reach }
+
+                    let closeBracket = 0;
+                    const startIndex = index + 1;
+                    let endIndex;
+
+                    for(let j = index; j < this.html.length; j++) {
+
+                        const closeBracketChar = this.html[j];
+
+                        if(closeBracketChar === "{") {
+                            closeBracket++
+                        }
+
+                        if(closeBracketChar === "}") {
+                            closeBracket--;
+                        }
+
+                        if(closeBracketChar === "}" && closeBracket === 0) {
+
+                            endIndex = j;
+
+                            const html = this.html.slice(startIndex, endIndex);
+
+                            const childTokens = Tokenizer.getInstance(html, this.options).start()
+
+                            this. tokens.push(...childTokens);
+
+                            this.tokens.push({
+                                name: "/" + token.name?.trim(),
+                                endTag: true,
+                                type: "node"
+                            })
+
+                            index = j + 1;
+                            returnIndex = index;
+
+                            isViableSyntax = false;
+                            exit = true;
+
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+                continue;
+
+            }
+
+            text += char;
+
+            if(paranthesisBracketOpen.includes(nextChar)){
+
+                if(syntaxes.includes(text.trim())) {
+
+                    isViableSyntax = true;
+
+                    token = {
+                        type: "node",
+                        name: text?.trim(),
+                        startTag: true,
+                        attributes: [],
+                    };
+
+                    text = "";
+
+                }
+
+            }
+
+        }
+
+        return returnIndex;
+
     }
 
 }

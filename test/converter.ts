@@ -1,4 +1,7 @@
+import {NodesHTMLConverter} from "../src/converter/NodesHTMLConverter";
+
 import {Tokenizer} from "../src/tokenizer/tokenizer";
+import {sojourn} from "../src";
 
 const html = `
 <html>
@@ -39,6 +42,8 @@ const html3 = `
 
 `
 
-const tokens = new Tokenizer(html3).start(true);
+const tokens = sojourn(html3);
 
-console.log(JSON.stringify(tokens));
+const nodeConverter = new NodesHTMLConverter(tokens).start();
+
+console.log((nodeConverter));

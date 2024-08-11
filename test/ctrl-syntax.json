@@ -1,0 +1,163 @@
+[
+  {
+    "index": 0,
+    "name": "div",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 1, "name": "{{2+4}}", "type": "text"},
+  {"index": 2, "name": "/div", "endTag": true, "type": "node"},
+  {
+    "index": 3,
+    "name": "div",
+    "attributes": [
+      {"name": "class", "value": "for"}
+    ],
+    "startTag": true,
+    "type": "node"
+  },
+  {
+    "index": 4,
+    "type": "node",
+    "name": "for",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "i of [7,9, 10]"}
+    ]
+  },
+  {
+    "index": 5,
+    "name": "span",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 6, "name": "For Child ", "type": "text"},
+  {
+    "index": 7,
+    "name": "b",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 8, "name": "{{i}}", "type": "text"},
+  {"index": 9, "name": "/b", "endTag": true, "type": "node"},
+  {"index": 10, "name": "/span", "endTag": true, "type": "node"},
+  {
+    "index": 11,
+    "type": "node",
+    "name": "for",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "ii of [2,3,4]"}
+    ]
+  },
+  {
+    "index": 12,
+    "name": "strong",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 13, "name": "Strong", "type": "text"},
+  {"index": 14, "name": "/strong", "endTag": true, "type": "node"},
+  {"index": 15, "name": "/for", "endTag": true, "type": "node"},
+  {"index": 16, "name": "/for", "endTag": true, "type": "node"},
+  {"index": 17, "name": " ", "type": "text"},
+  {
+    "index": 18,
+    "name": "section",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 19, "name": "A section", "type": "text"},
+  {"index": 20, "name": "/section", "endTag": true, "type": "node"},
+  {"index": 21, "name": "/div", "endTag": true, "type": "node"},
+  {
+    "index": 22,
+    "name": "button",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {
+    "index": 23,
+    "type": "node",
+    "name": "for",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "y of [100,200]"}
+    ]
+  },
+  {
+    "index": 24,
+    "type": "node",
+    "name": "if",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "y < 100"}
+    ]
+  },
+  {
+    "index": 25,
+    "name": "i",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 26, "name": "{{y}}", "type": "text"},
+  {"index": 27, "name": "/i", "endTag": true, "type": "node"},
+  {"index": 28, "name": "/if", "endTag": true, "type": "node"},
+  {"index": 29, "name": "/for", "endTag": true, "type": "node"},
+  {"index": 30, "name": "</button>", "type": "text"},
+  {
+    "index": 31,
+    "name": "div",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {
+    "index": 32,
+    "type": "node",
+    "name": "if ",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "x > 5"}
+    ]
+  },
+  {"index": 33, "name": " ", "type": "text"},
+  {
+    "index": 34,
+    "name": "h1",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 35, "name": "My First Heading", "type": "text"},
+  {"index": 36, "name": "/h1", "endTag": true, "type": "node"},
+  {"index": 37, "name": "/if ", "endTag": true, "type": "node"},
+  {
+    "index": 38,
+    "type": "node",
+    "name": "for ",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "fruit of ['mango', 'orange']"}
+    ]
+  },
+  {"index": 39, "name": "        ", "type": "text"},
+  {
+    "index": 40,
+    "name": "i",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 41, "name": " {{ fruit }}", "type": "text"},
+  {"index": 42, "name": "/i", "endTag": true, "type": "node"},
+  {"index": 43, "name": "/for ", "endTag": true, "type": "node"},
+  {"index": 44, "name": "EOF", "type": "EOF"}
+]
