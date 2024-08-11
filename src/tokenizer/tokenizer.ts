@@ -2,17 +2,29 @@ import {Token} from "../types/types";
 import {AttributeParser} from "../attr-parser/attribute-parser";
 import {syntaxes} from "../utils/constants";
 
+type OptionsType = {
+    parseControlSyntax: boolean,
+    parseExpression: boolean,
+}
+
+const defaultOptions: OptionsType = {
+    parseControlSyntax: true,
+    parseExpression: false,
+}
+
 export class Tokenizer {
 
     private tokens: Token[] = [];
 
-    constructor(private html: string) {}
+    constructor(private html: string, private options: OptionsType = defaultOptions) {}
 
-    public static getInstance(html: string): Tokenizer {
-        return new Tokenizer(html)
+    public static getInstance(html: string, options?: OptionsType): Tokenizer {
+        return new Tokenizer(html, options = defaultOptions)
     }
 
     public start(root?: boolean) {
+
+        const { parseControlSyntax, parseExpression } = this.options
 
         this.html = this.html.split("").filter(char => {
             if (char === "\n") {
@@ -54,7 +66,7 @@ export class Tokenizer {
                 continue;
             }
 
-            if(char === "@") {
+            if(char === "@" && parseControlSyntax) {
 
                 const returnIndex = this.checkTemplateSyntaxes(index);
 
@@ -135,7 +147,7 @@ export class Tokenizer {
                     const textChar = this.html[j];
                     textName += textChar;
 
-                    if(textChar === "@") {
+                    if(textChar === "@" && parseControlSyntax) {
 
                         const returnIndex = this.checkTemplateSyntaxes(j);
 
@@ -180,8 +192,6 @@ export class Tokenizer {
                 ...token
             }
         });
-
-        // console.log(mappedTokens)
 
         return mappedTokens
 
@@ -315,7 +325,7 @@ export class Tokenizer {
 
                             const html = this.html.slice(startIndex, endIndex);
 
-                            const childTokens = Tokenizer.getInstance(html).start()
+                            const childTokens = Tokenizer.getInstance(html, this.options).start()
 
                             this. tokens.push(...childTokens);
 
