@@ -54,7 +54,7 @@ export class Tokenizer {
                 continue;
             }
 
-            if(char === "@" && openTag === false) {
+            if(char === "@") {
 
                 const returnIndex = this.checkTemplateSyntaxes(index);
 
@@ -134,6 +134,17 @@ export class Tokenizer {
 
                     const textChar = this.html[j];
                     textName += textChar;
+
+                    if(textChar === "@") {
+
+                        const returnIndex = this.checkTemplateSyntaxes(j);
+
+                        if(returnIndex) {
+                            j = returnIndex;
+                            index = j;
+                        }
+
+                    }
 
                     if(this.html[j + 1] === "<") {
 
@@ -224,6 +235,8 @@ export class Tokenizer {
         const parenthesisBracketOpen = ["(", "{"];
         let isViableSyntax = false;
 
+        let exit = false;
+
         let token!: Token;
 
         let returnIndex
@@ -232,6 +245,10 @@ export class Tokenizer {
 
             const char = this.html[index];
             const nextChar = this.html[index + 1];
+
+            if(exit) {
+                break;
+            }
 
             if(index === currentIndex) {
                 continue;
@@ -263,7 +280,7 @@ export class Tokenizer {
                                 })
                                 this.tokens.push(token)
                             }
-                            index = j + 1;
+                            index = j //+ 1;
                             break;
                         }
 
@@ -298,16 +315,24 @@ export class Tokenizer {
 
                             const html = this.html.slice(startIndex, endIndex);
 
-                            const _tokens = Tokenizer.getInstance(html).start()
-                            this. tokens.push(..._tokens);
+                            const childTokens = Tokenizer.getInstance(html).start()
+
+                            this. tokens.push(...childTokens);
+
                             this.tokens.push({
                                 name: "/" + token.name,
                                 endTag: true,
                                 type: "node"
                             })
+
                             index = j + 1;
                             returnIndex = index;
+
+                            isViableSyntax = false;
+                            exit = true;
+
                             break;
+
                         }
 
                     }

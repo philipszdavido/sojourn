@@ -23,10 +23,7 @@
     "name": "for",
     "startTag": true,
     "attributes": [
-      {"name": "let-attr", "value": "i of [7,9, 10]"              },
-      {"name": "let-attr", "value": "y of [100,200]"              },
-      {"name": "let-attr", "value": "x > 5"                       },
-      {"name": "let-attr", "value": "fruit of ['mango', 'orange']"}
+      {"name": "let-attr", "value": "i of [7,9, 10]"}
     ]
   },
   {
@@ -47,7 +44,15 @@
   {"index": 8, "name": "{{i}}", "type": "text"},
   {"index": 9, "name": "/b", "endTag": true, "type": "node"},
   {"index": 10, "name": "/span", "endTag": true, "type": "node"},
-  {"index": 11, "name": " @for(ii of [2,3,4]){", "type": "text"},
+  {
+    "index": 11,
+    "type": "node",
+    "name": "for",
+    "startTag": true,
+    "attributes": [
+      {"name": "let-attr", "value": "ii of [2,3,4]"}
+    ]
+  },
   {
     "index": 12,
     "name": "strong",
@@ -58,20 +63,36 @@
   {"index": 13, "name": "Strong", "type": "text"},
   {"index": 14, "name": "/strong", "endTag": true, "type": "node"},
   {"index": 15, "name": "/for", "endTag": true, "type": "node"},
+  {"index": 16, "name": "/for", "endTag": true, "type": "node"},
+  {"index": 17, "name": " ", "type": "text"},
   {
-    "index": 16,
+    "index": 18,
+    "name": "section",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {"index": 19, "name": "A section", "type": "text"},
+  {"index": 20, "name": "/section", "endTag": true, "type": "node"},
+  {"index": 21, "name": "/div", "endTag": true, "type": "node"},
+  {
+    "index": 22,
+    "name": "button",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {
+    "index": 23,
     "type": "node",
     "name": "for",
     "startTag": true,
     "attributes": [
-      {"name": "let-attr", "value": "i of [7,9, 10]"              },
-      {"name": "let-attr", "value": "y of [100,200]"              },
-      {"name": "let-attr", "value": "x > 5"                       },
-      {"name": "let-attr", "value": "fruit of ['mango', 'orange']"}
+      {"name": "let-attr", "value": "y of [100,200]"}
     ]
   },
   {
-    "index": 17,
+    "index": 24,
     "type": "node",
     "name": "if",
     "startTag": true,
@@ -80,61 +101,63 @@
     ]
   },
   {
-    "index": 18,
+    "index": 25,
     "name": "i",
     "attributes": [],
     "startTag": true,
     "type": "node"
   },
-  {"index": 19, "name": "{{y}}", "type": "text"},
-  {"index": 20, "name": "/i", "endTag": true, "type": "node"},
-  {"index": 21, "name": "/if", "endTag": true, "type": "node"},
-  {"index": 22, "name": "/for", "endTag": true, "type": "node"},
+  {"index": 26, "name": "{{y}}", "type": "text"},
+  {"index": 27, "name": "/i", "endTag": true, "type": "node"},
+  {"index": 28, "name": "/if", "endTag": true, "type": "node"},
+  {"index": 29, "name": "/for", "endTag": true, "type": "node"},
+  {"index": 30, "name": "</button>", "type": "text"},
   {
-    "index": 23,
+    "index": 31,
+    "name": "div",
+    "attributes": [],
+    "startTag": true,
+    "type": "node"
+  },
+  {
+    "index": 32,
     "type": "node",
-    "name": "for",
+    "name": "if ",
     "startTag": true,
     "attributes": [
-      {"name": "let-attr", "value": "i of [7,9, 10]"              },
-      {"name": "let-attr", "value": "y of [100,200]"              },
-      {"name": "let-attr", "value": "x > 5"                       },
-      {"name": "let-attr", "value": "fruit of ['mango', 'orange']"}
+      {"name": "let-attr", "value": "x > 5"}
     ]
   },
-  {"index": 24, "name": " ", "type": "text"},
+  {"index": 33, "name": " ", "type": "text"},
   {
-    "index": 25,
+    "index": 34,
     "name": "h1",
     "attributes": [],
     "startTag": true,
     "type": "node"
   },
-  {"index": 26, "name": "My First Heading", "type": "text"},
-  {"index": 27, "name": "/h1", "endTag": true, "type": "node"},
-  {"index": 28, "name": "/for", "endTag": true, "type": "node"},
+  {"index": 35, "name": "My First Heading", "type": "text"},
+  {"index": 36, "name": "/h1", "endTag": true, "type": "node"},
+  {"index": 37, "name": "/if ", "endTag": true, "type": "node"},
   {
-    "index": 29,
+    "index": 38,
     "type": "node",
-    "name": "for",
+    "name": "for ",
     "startTag": true,
     "attributes": [
-      {"name": "let-attr", "value": "i of [7,9, 10]"              },
-      {"name": "let-attr", "value": "y of [100,200]"              },
-      {"name": "let-attr", "value": "x > 5"                       },
       {"name": "let-attr", "value": "fruit of ['mango', 'orange']"}
     ]
   },
-  {"index": 30, "name": "        ", "type": "text"},
+  {"index": 39, "name": "        ", "type": "text"},
   {
-    "index": 31,
+    "index": 40,
     "name": "i",
     "attributes": [],
     "startTag": true,
     "type": "node"
   },
-  {"index": 32, "name": " {{ fruit }}", "type": "text"},
-  {"index": 33, "name": "/i", "endTag": true, "type": "node"},
-  {"index": 34, "name": "/for", "endTag": true, "type": "node"},
-  {"index": 35, "name": "EOF", "type": "EOF"}
+  {"index": 41, "name": " {{ fruit }}", "type": "text"},
+  {"index": 42, "name": "/i", "endTag": true, "type": "node"},
+  {"index": 43, "name": "/for ", "endTag": true, "type": "node"},
+  {"index": 44, "name": "EOF", "type": "EOF"}
 ]
